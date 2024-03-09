@@ -58,13 +58,6 @@ app.get('/books/:id', async (req, res) => {
 // create a book
 app.post('/book', async (req, res) => {
     try {
-        // TODO: Validar se o nome tá vazio null
-        // TODO: Validar trim
-        if (req.body.name.trim() === '' || req.body.name === undefined) {
-            res.status(400).json({ message: `The field "name" isn't defined` })
-            return
-        }
-
         // Mapper de Entrada para Model
         const reqBook = {
             name: req.body.name,
@@ -82,6 +75,45 @@ app.post('/book', async (req, res) => {
         res.status(200).json(response)
     } catch (error) {
         console.log(error.message)
+        res.status(500).json({ message: error.message })
+    }
+})
+
+// update a book
+app.put('/books/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        const book = await BookModel.findByIdAndUpdate(id, req.body)
+        if (!book) {
+            return res
+                .status(404)
+                .json({ message: `Cannot find any book with ID ${id}` })
+        }
+        // Mapper de Entrada para Model
+        const reqBook = {
+            name: req.body.name,
+            quantity_page: req.body.pages,
+            quantity_reading_days: req.body.readingDays,
+        }
+        const updateBook = await BookModel.findById(reqBook)
+        res.status(200).json(updateBook)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+// delete a book
+app.delete('/books/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        const book = await BookModel.findByIdAndDelete(id)
+        if (!book) {
+            return res
+                .status(404)
+                .json({ message: `Cannot find any book with ID` })
+        }
+        res.status(200).json(book)
+    } catch (error) {
         res.status(500).json({ message: error.message })
     }
 })
