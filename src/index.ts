@@ -82,21 +82,28 @@ app.post('/book', async (req, res) => {
 // update a book
 app.put('/books/:id', async (req, res) => {
     try {
-        const { id } = req.params
-        const book = await BookModel.findByIdAndUpdate(id, req.body)
-        if (!book) {
-            return res
-                .status(404)
-                .json({ message: `Cannot find any book with ID ${id}` })
-        }
         // Mapper de Entrada para Model
         const reqBook = {
             name: req.body.name,
             quantity_page: req.body.pages,
             quantity_reading_days: req.body.readingDays,
         }
-        const updateBook = await BookModel.findById(reqBook)
-        res.status(200).json(updateBook)
+        const { id } = req.params
+        const book = await BookModel.findByIdAndUpdate(id, reqBook)
+        if (!book) {
+            return res
+                .status(404)
+                .json({ message: `Cannot find any book with ID ${id}` })
+        }
+        const updateBook = await BookModel.findById(id)
+        // Mapper Model para Resposta
+        const response = {
+            id: updateBook._id,
+            name: updateBook.name.trimStart().trimEnd(),
+            pages: updateBook.quantity_page,
+            readingDays: updateBook.quantity_reading_days,
+        }
+        res.status(200).json(response)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
