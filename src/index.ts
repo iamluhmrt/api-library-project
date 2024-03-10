@@ -1,24 +1,24 @@
-// Habilita as variáveis de ambiente
+// Enable environment variables
 import dotenv from 'dotenv'
 dotenv.config()
 
-// import libraries
+// Import libraries
 import express from 'express'
 import db from 'mongoose'
 import { BookModel } from './models/bookModel.ts'
 
-// config express router
+// Config express router
 const port = process.env.PORT || 3033
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// routes
+// Routes
 app.get('/', (req, res) => {
     res.send('Hello')
 })
 
-// fetch books
+// Fetch books
 app.get('/books', async (req, res) => {
     try {
         const books = await BookModel.find({})
@@ -38,7 +38,7 @@ app.get('/books', async (req, res) => {
     }
 })
 
-// fetch books from id
+// Fetch books from id
 app.get('/books/:id', async (req, res) => {
     try {
         const { id } = req.params
@@ -55,17 +55,17 @@ app.get('/books/:id', async (req, res) => {
     }
 })
 
-// create a book
+// Create a book
 app.post('/book', async (req, res) => {
     try {
-        // Mapper de Entrada para Model
+        // Input Mapper for Model
         const reqBook = {
             name: req.body.name,
             quantity_page: req.body.pages,
             quantity_reading_days: req.body.readingDays,
         }
         const book = await BookModel.create(reqBook)
-        // Mapper Model para Resposta
+        // Mapper Model for Response
         const response = {
             id: book._id,
             name: book.name.trimStart().trimEnd(),
@@ -79,10 +79,10 @@ app.post('/book', async (req, res) => {
     }
 })
 
-// update a book
+// Update a book
 app.put('/books/:id', async (req, res) => {
     try {
-        // Mapper de Entrada para Model
+        // Input Mapper for Model
         const reqBook = {
             name: req.body.name,
             quantity_page: req.body.pages,
@@ -96,7 +96,7 @@ app.put('/books/:id', async (req, res) => {
                 .json({ message: `Cannot find any book with ID ${id}` })
         }
         const updateBook = await BookModel.findById(id)
-        // Mapper Model para Resposta
+        // Mapper Model for Response
         const response = {
             id: updateBook._id,
             name: updateBook.name.trimStart().trimEnd(),
@@ -109,7 +109,7 @@ app.put('/books/:id', async (req, res) => {
     }
 })
 
-// delete a book
+// Delete a book
 app.delete('/books/:id', async (req, res) => {
     try {
         const { id } = req.params
@@ -125,7 +125,7 @@ app.delete('/books/:id', async (req, res) => {
     }
 })
 
-// connection with mongodb and start server
+// Connection with mongodb and start server
 db.connect(process.env.DB_CONNECTION_STRING)
     .then(() => {
         console.log('connected to MongoDB')
