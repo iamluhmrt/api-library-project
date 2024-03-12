@@ -1,6 +1,6 @@
-# API LIBRARY - NodeJS and MongoDB Functional project
+# API LIBRARY - NodeJS and MongoDB Functional Project
 
-## A fully FUNCTIONAL project written in TypeScript to save read books
+## A fully functional project written in TypeScript to save read books
 
 This project is for you to save books you have already read. You can add, read, update, and delete book information and then storage the data in the database.
 
@@ -10,7 +10,7 @@ This project is for you to save books you have already read. You can add, read, 
 
 ## Preview: Interface and features
 
-<img src="/src/img/api-main-screen.png" alt="main screen" width="800" height=400 border="5">
+<img src="/src/img/api-main-screen.png" alt="main screen" width="800" height=800 border="5">
 <img src="/src/img/api-edit.book-screen.png" alt="edit book screen" width="800" height=400 border="5">
 <img src="/src/img/api-new-book-screen.png" alt="new book screen" width="800" height=400 border="5">
 <img src="/src/img/api-show-book-screen.png" alt="show book screen" width="800" height=400 border="5">
@@ -24,6 +24,7 @@ This project is for you to save books you have already read. You can add, read, 
 5. Install cors \*required ^2.8.5 - npm i cors
 6. Install tsx \*required ^4.7.1 - npm instalar --save-dev tsx
 7. Install nodemon \*optinal ^3.1.0 - npm i nodemon
+8. Run the application in the console - npm run start
 
 ## How to tweak this project for your own uses
 
