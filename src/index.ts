@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 // Import libraries
+import cors from 'cors'
 import express from 'express'
 import db from 'mongoose'
 import { BookModel } from './models/bookModel.ts'
@@ -10,16 +11,14 @@ import { BookModel } from './models/bookModel.ts'
 // Config express router
 const port = process.env.PORT || 3033
 const app = express()
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // Routes
-app.get('/', (req, res) => {
-    res.send('Hello')
-})
 
 // Fetch books
-app.get('/books', async (req, res) => {
+app.get('/books/', async (req, res) => {
     try {
         const books = await BookModel.find({})
         const response = books.map(
@@ -56,7 +55,7 @@ app.get('/books/:id', async (req, res) => {
 })
 
 // Create a book
-app.post('/book', async (req, res) => {
+app.post('/books/', async (req, res) => {
     try {
         // Input Mapper for Model
         const reqBook = {
@@ -95,13 +94,12 @@ app.put('/books/:id', async (req, res) => {
                 .status(404)
                 .json({ message: `Cannot find any book with ID ${id}` })
         }
-        const updateBook = await BookModel.findById(id)
         // Mapper Model for Response
         const response = {
-            id: updateBook._id,
-            name: updateBook.name.trimStart().trimEnd(),
-            pages: updateBook.quantity_page,
-            readingDays: updateBook.quantity_reading_days,
+            id: book._id,
+            name: book.name.trimStart().trimEnd(),
+            pages: book.quantity_page,
+            readingDays: book.quantity_reading_days,
         }
         res.status(200).json(response)
     } catch (error) {
