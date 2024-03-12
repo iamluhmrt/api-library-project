@@ -10,10 +10,10 @@ This project is for you to save books you have already read. You can add, read, 
 
 ## Preview: Interface and features
 
-<img src="/src/img/api-main-screen.png" alt="main screen" width="233" height=183 border="5">
-<img src="/src/img/api-edit.book-screen.png" alt="edit book screen" width="233" height=183 border="5">
-<img src="/src/img/api-new-book-screen.png" alt="new book screen" width="233" height=183 border="5">
-<img src="/src/img/api-show-book-screen.png" alt="show book screen" width="233" height=183 border="5">
+<img src="/src/img/api-main-screen.png" alt="main screen" width="800" height=400 border="5">
+<img src="/src/img/api-edit.book-screen.png" alt="edit book screen" width="800" height=400 border="5">
+<img src="/src/img/api-new-book-screen.png" alt="new book screen" width="800" height=400 border="5">
+<img src="/src/img/api-show-book-screen.png" alt="show book screen" width="800" height=400 border="5">
 
 ## Library API usage instructions
 
